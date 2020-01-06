@@ -24,7 +24,7 @@ class FloridaHurricaneFind:
 
         #update max windspeed, if it's greater than existing speed
         #always check this condition
-        if int(data[6].strip()) > self.hurList[-1][1]:
+        if int(data[6].strip()) > self.hurList[-1][2]:
             self.hurList[-1][2] = int(data[6].strip())
         return
 

@@ -1,2 +1,6 @@
 #ignore vscode directories
 **/.vscode
+#ignore output
+output.txt
+#ignore all pyc files
+*.pyc
