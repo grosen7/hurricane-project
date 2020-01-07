@@ -28,12 +28,10 @@ class FloridaHurricaneFind:
                 self.hurList[-1][3] = "{}-{}-{}".format(data[0][:4],data[0][4:6],data[0][6:])
 
         #update max windspeed if it's greater than existing speed
-        #always check this condition
         if int(data[6].strip()) > self.hurList[-1][2]:
             self.hurList[-1][2] = int(data[6].strip())
         return
 
-    
     def floridaHurricaneFind(self,file):
         #reads in data row by row and analyzes
         with open(file) as hurdat:
