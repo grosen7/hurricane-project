@@ -1,7 +1,7 @@
 class FloridaHurricaneFind:
     def __init__(self):
-        #name, if hurricane made landfall in florida, windspeed and date of landfall
-        #is appended to list for each hurricane
+        #this list containts name, if hurricane made landfall in florida, 
+        #windspeed and date of landfall, is appended to list for each new hurricane
         self.hurList = []
 
     def analyze(self,data):
@@ -16,13 +16,18 @@ class FloridaHurricaneFind:
         
         #if program hasn't detected the hurricane in florida yet check lat/lng
         elif not self.hurList[-1][1]:
-            #if hurricane made landfall in Florida set flag in hurDict to true
-            #also set date of landfall
-            if data[2].strip() == "L" and float(data[4][:-1].strip()) >= 24.39 and float(data[4][:-1].strip()) <= 31 and float(data[5][:-1].strip()) >= 79.81 and float(data[5][:-1].strip()) <= 87.63:
-                self.hurList[-1][1] = True
-                self.hurList[-1][3] = int(data[0])
+            self.latitude = float(data[4][:-1].strip())
+            self.longitude = float(data[5][:-1].strip())
+            self.latHem = data[4][-1].strip()
+            self.lngHem = data[5][-1].strip()
 
-        #update max windspeed, if it's greater than existing speed
+            #if hurricane made landfall in Florida set flag in hurList to true
+            #also set date of landfall
+            if data[2].strip() == "L" and 24.39 <= self.latitude <= 31 and 79.81 <= self.longitude <= 87.63 and self.latHem == "N" and self.lngHem == "W":
+                self.hurList[-1][1] = True
+                self.hurList[-1][3] = "{}-{}-{}".format(data[0][:4],data[0][4:6],data[0][6:])
+
+        #update max windspeed if it's greater than existing speed
         #always check this condition
         if int(data[6].strip()) > self.hurList[-1][2]:
             self.hurList[-1][2] = int(data[6].strip())
@@ -39,7 +44,7 @@ class FloridaHurricaneFind:
         
         #after data is anaylzed, write output to file
         with open("output.txt","w+") as output: 
-            output.write("Name, Windspeed, Date\n")
+            output.write("Name, Windspeed (knots), Date(YYY-MM-DD)\n")
             for row in self.hurList:
                 if row[1]:
                     self.line = "{}, {}, {}\n".format(row[0],row[2],row[3])
