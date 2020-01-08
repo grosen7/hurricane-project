@@ -1,7 +1,7 @@
 class FloridaHurricaneFind:
     def __init__(self):
-        #this list containts name, if hurricane made landfall in florida, 
-        #windspeed and date of landfall, is appended to list for each new hurricane
+        #this list containts name, if hurricane made landfall in florida, windspeed and date of landfall,
+        #new data is appended to list for each new hurricane
         self.hurList = []
 
     def analyze(self,data):
